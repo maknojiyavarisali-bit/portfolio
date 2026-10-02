@@ -21,9 +21,10 @@
   @keyframes rip{to{transform:scale(3);opacity:0;}}
   /* HERO */
   .hero{padding:56px 0 0;position:relative;}
-  .hero .mark-word{font-family:'Archivo Black','Poppins',sans-serif;font-size:30px;letter-spacing:-1px;color:var(--ink);margin-bottom:32px;animation:float 4.5s ease-in-out infinite;display:inline-block;}
-  .hero .mark-word b{color:var(--blue);}
+  .hero .mark{width:54px;height:27px;border:2px solid var(--ink);border-radius:50%;position:relative;margin-bottom:36px;}
+  .hero .mark::after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:9px;height:9px;border-radius:50%;background:var(--blue);}
   .hero .date{font-size:13px;color:var(--grey);letter-spacing:1px;margin-bottom:6px;}
+  .hero .title{font-size:clamp(24px,4.5vw,34px);font-weight:700;letter-spacing:-0.5px;}
   .hero .pres{font-size:15px;color:#4a4a52;margin-bottom:50px;}
   .hero .pres b{color:var(--ink);font-weight:600;}
   .hero .meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid var(--ink);padding:14px 0;font-size:12.5px;}
@@ -47,8 +48,8 @@
   .id-name p{color:#4a4a52;margin-top:16px;font-size:15.5px;max-width:520px;}
   @media(max-width:700px){.id-name p{margin-left:auto;margin-right:auto;}}
   /* giant type footer of hero area */
-  .giant{overflow:hidden;height:clamp(52px,13vw,150px);margin-top:26px;user-select:none;}
-  .giant div{font-family:'Archivo Black','Poppins',sans-serif;font-size:clamp(42px,12vw,150px);line-height:1;letter-spacing:-3px;white-space:nowrap;color:var(--ink);}
+  .giant{overflow:hidden;height:clamp(60px,11vw,120px);margin-top:26px;user-select:none;}
+  .giant div{font-family:'Archivo Black','Poppins',sans-serif;font-size:clamp(70px,12.5vw,135px);line-height:.95;letter-spacing:-3px;white-space:nowrap;color:var(--ink);}
   .giant b{color:var(--blue);}
   /* section heads */
   .shead{display:flex;align-items:baseline;gap:16px;border-top:2px solid var(--ink);padding-top:16px;margin-bottom:36px;flex-wrap:wrap;}
@@ -140,8 +141,9 @@
 <body>
 
 <div class="hero"><div class="wrap">
-  <div class="mark-word">VM<b>.</b></div>
+  <div class="mark"></div>
   <div class="date">October 2026</div>
+  <div class="title">Graphic Design Portfolio</div>
   <div class="pres">Presented By: <b>Varis Maknojiya</b></div>
   <div class="meta">
     <div class="roles"><span>Graphic Designer</span><i>/</i><span>Branding</span><i>/</i><span>Packaging</span></div>
@@ -149,7 +151,7 @@
   </div>
 </div>
 <nav class="quicknav" aria-label="Sections"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a><a class="qn-wa" href="https://wa.me/917575077517">WhatsApp</a></nav>
-<div class="giant"><div>PORTFOLIO<b>.</b></div></div>
+<div class="giant"><div>VARIS<b>.</b></div></div>
 </div>
 
 <div class="identity"><div class="wrap"><div class="row reveal">
