@@ -295,6 +295,16 @@
 </style>
 </head>
 <body>
+<script>
+(function(){
+  function forceIn(){
+    try{ document.querySelectorAll('.reveal:not(.in)').forEach(function(el){ el.classList.add('in'); }); }catch(e){}
+  }
+  window.addEventListener('load', function(){ setTimeout(forceIn, 1200); });
+  setTimeout(forceIn, 3000);
+})();
+</script>
+
 <div id="gate"><div class="g-inner">
   <span class="g-kick">Graphic <b>Design</b></span>
   <div class="hn-word g-word"><span class="metal">P</span><span class="metal">o</span><span class="metal">r</span><span class="metal">t</span><span class="metal">f</span><span class="orb"></span><span class="metal">l</span><span class="metal">i</span><span class="metal">o</span></div>
