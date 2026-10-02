@@ -34,11 +34,11 @@
   .hero .meta .ways b{color:var(--ink);font-weight:500;word-break:break-all;}
   /* page 2 style: animated photo left, full name right */
   .identity{padding:80px 0 40px;}
-  .identity .row{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:50px;align-items:center;}
+  .identity .row{display:grid;grid-template-columns:minmax(250px,330px) 1fr;gap:50px;align-items:center;}
   @media(max-width:700px){.identity .row{grid-template-columns:1fr;gap:26px;text-align:center;justify-items:center;}}
   .photo-box{position:relative;animation:float 4.5s ease-in-out infinite;}
   .photo-box .frame{background:#fff;border:2px solid var(--ink);padding:10px;box-shadow:10px 10px 0 var(--blue);}
-  .photo-box img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;border-radius:4px;}
+  .photo-box img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top center;display:block;border-radius:4px;}
   .photo-box .badge{position:absolute;top:-16px;right:-14px;background:var(--blue);color:#fff;font-size:10px;letter-spacing:2px;padding:7px 12px;border-radius:20px;text-transform:uppercase;font-weight:600;}
   @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
   @media(prefers-reduced-motion:reduce){.photo-box{animation:none;}}
@@ -118,6 +118,24 @@
   .cline b{font-size:15px;word-break:break-all;font-weight:600;}
   .footer{background:var(--ink);color:#8b8b93;text-align:center;font-size:13px;padding:24px 0;letter-spacing:1px;border-top:1px solid #2c2c34;}
   .footer b{color:#fff;}
+
+  /* quick nav */
+  .quicknav{display:flex;gap:10px;flex-wrap:wrap;margin:26px 0 6px;}
+  .quicknav a{display:inline-block;padding:9px 18px;border:2px solid var(--ink);border-radius:999px;font-size:13px;font-weight:600;color:var(--ink);text-decoration:none;background:#fff;transition:all .2s ease;}
+  .quicknav a:hover,.quicknav a:focus-visible{background:var(--ink);color:#fff;}
+  .quicknav .qn-wa{background:var(--blue);border-color:var(--blue);color:#fff;}
+  .quicknav .qn-wa:hover,.quicknav .qn-wa:focus-visible{background:#173db0;border-color:#173db0;}
+  @media(max-width:700px){
+    section{padding:56px 0;}
+    .wrap{padding:0 18px;}
+    .hero{padding:40px 0 0;}
+    .hero .pres{margin-bottom:36px;}
+    .identity{padding:56px 0 24px;}
+    .cat{min-height:180px;padding:26px 22px;}
+    .modal{padding:14px;}
+    .modal .box{padding:20px 16px;}
+    .mgrid{gap:12px;}
+  }
 </style>
 </head>
 <body>
@@ -129,9 +147,10 @@
   <div class="pres">Presented By: <b>Varis Maknojiya</b></div>
   <div class="meta">
     <div class="roles"><span>Graphic Designer</span><i>/</i><span>Branding</span><i>/</i><span>Packaging</span></div>
-    <div class="ways"><b>maknojiyavarisali@gmail.com</b><b>+91 75750 77517</b></div>
+    <div class="ways"><b>maknojiyavarisali@gmail.com</b><b>WhatsApp Business: +91 75750 77517</b></div>
   </div>
 </div>
+<nav class="quicknav" aria-label="Sections"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a><a class="qn-wa" href="https://wa.me/917575077517">WhatsApp</a></nav>
 <div class="giant"><div>VARIS<b>.</b></div></div>
 </div>
 
@@ -176,7 +195,7 @@
 <section id="contact" class="contact-sec"><div class="wrap">
   <div class="shead reveal"><h3>Contact</h3><small>Let us work together</small></div>
   <div class="clines reveal">
-    <a class="cline ripple-host" href="https://wa.me/917575077517"><small>WhatsApp</small><b>+91 75750 77517</b></a>
+    <a class="cline ripple-host" href="https://wa.me/917575077517"><small>WhatsApp Business</small><b>+91 75750 77517</b></a>
     <a class="cline ripple-host" href="mailto:maknojiyavarisali@gmail.com"><small>Email</small><b>maknojiyavarisali@gmail.com</b></a>
     <a class="cline ripple-host" href="https://www.instagram.com/designden_05"><small>Instagram</small><b>@designden_05</b></a>
   </div>
