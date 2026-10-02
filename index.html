@@ -254,19 +254,52 @@
 
   #gate{position:fixed;inset:0;z-index:300;background:#0b0c0f;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:opacity .65s ease,transform .65s ease;}
   #gate .g-inner{display:flex;flex-direction:column;align-items:center;gap:36px;padding:0 18px;text-align:center;}
-  #gate .g-kick{font-family:'Poppins',sans-serif;font-size:16px;color:#8b8f98;letter-spacing:1px;}
+  #gate .g-kick{font-family:'Poppins',sans-serif;font-size:16px;color:#8b8f98;letter-spacing:1px;animation:gIn .9s .1s both;}
   #gate .g-kick b{color:#fff;}
-  #gate .g-hint{font-family:'Poppins',sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#9aa0ab;animation:gpulse 1.8s ease-in-out infinite;}
-  #gate.open{opacity:0;transform:scale(1.07);pointer-events:none;}
-  @keyframes gpulse{0%,100%{opacity:.4}50%{opacity:1}}
+  #gate .g-word{animation:gWord 1.1s .25s cubic-bezier(.2,.8,.2,1) both;}
+  #gate .g-sign{font-family:'Caveat',cursive;font-weight:700;font-size:44px;color:var(--lime);transform:rotate(-6deg);animation:gIn 1s .7s both;}
+  #gate .g-tap{display:inline-flex;align-items:center;gap:10px;font-family:'Poppins',sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#b9b9c2;animation:gIn 1s .9s both;}
+  #gate .g-tap i{width:12px;height:12px;border-radius:50%;background:#c9f31d;box-shadow:0 0 0 0 rgba(201,243,29,.55);animation:gripple 1.6s ease-out infinite;}
+  @keyframes gIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+  #gate .g-sign{display:inline-block;}
+  @keyframes gWord{from{opacity:0;transform:translateY(46px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+  @keyframes gripple{to{box-shadow:0 0 0 18px rgba(201,243,29,0);}}
+  #gate.open{opacity:0;transform:scale(1.08) translateY(-3%);filter:blur(8px);pointer-events:none;transition:opacity .7s ease,transform .7s ease,filter .7s ease;}
   body.gate-locked{overflow:hidden;height:100vh;}
+
+  /* entrance bloom after gate opens */
+  body.bloom .hn-top{animation:gIn .8s .05s both;}
+  body.bloom .hn-kicker{animation:gIn .8s .15s both;}
+  body.bloom .hn-word > *{animation:wordUp .85s cubic-bezier(.2,.8,.2,1) both;}
+  body.bloom .hn-word > *:nth-child(1){animation-delay:.2s;}
+  body.bloom .hn-word > *:nth-child(2){animation-delay:.27s;}
+  body.bloom .hn-word > *:nth-child(3){animation-delay:.34s;}
+  body.bloom .hn-word > *:nth-child(4){animation-delay:.41s;}
+  body.bloom .hn-word > *:nth-child(5){animation-delay:.48s;}
+  body.bloom .hn-word > *:nth-child(7){animation-delay:.55s;}
+  body.bloom .hn-word > *:nth-child(8){animation-delay:.62s;}
+  body.bloom .hn-word > *:nth-child(9){animation-delay:.69s;}
+  body.bloom .hn-word .orb{animation:orbIn .9s .5s cubic-bezier(.2,.8,.2,1) both, orbPulse 4s 1.6s ease-in-out infinite;}
+  body.bloom .hn-roles{animation:gIn .9s .8s both;}
+  body.bloom .hn-sign{animation:signIn .9s .95s both;}
+  @keyframes wordUp{from{opacity:0;transform:translateY(55%)}to{opacity:1;transform:translateY(0)}}
+  @keyframes orbIn{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:scale(1)}}
+  @keyframes signIn{from{opacity:0;transform:rotate(-7deg) translateY(24px)}to{opacity:1;transform:rotate(-7deg) translateY(0)}}
+  /* staggered reveals */
+  .mini > .reveal:nth-child(2){transition-delay:.15s;}
+  .clines .reveal:nth-child(2){transition-delay:.1s;}
+  .clines .reveal:nth-child(3){transition-delay:.2s;}
+  /* modal cells cascade in */
+  .mgrid .cell,.mgrid .mhead{animation:cellIn .55s cubic-bezier(.2,.8,.2,1) both;}
+  @keyframes cellIn{from{opacity:0;transform:translateY(26px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
 </style>
 </head>
 <body>
 <div id="gate"><div class="g-inner">
   <span class="g-kick">Graphic <b>Design</b></span>
-  <div class="hn-word">P<span class="orb">o</span>rtfolio</div>
-  <span class="g-hint">Tap or swipe to open</span>
+  <div class="hn-word g-word"><span class="metal">P</span><span class="metal">o</span><span class="metal">r</span><span class="metal">t</span><span class="metal">f</span><span class="orb"></span><span class="metal">l</span><span class="metal">i</span><span class="metal">o</span></div>
+  <span class="g-sign">Varis</span>
+  <span class="g-tap"><i></i>Tap or swipe to open</span>
 </div></div>
 
 
@@ -399,6 +432,7 @@ document.querySelectorAll('.cat').forEach(function(c){
         n++;
         var cell = document.createElement('div'); cell.className = 'cell';
         var tag = document.createElement('i'); tag.className = 'stag'; tag.textContent = ('0'+n).slice(-2); cell.appendChild(tag);
+        cell.style.animationDelay = (n * 0.06) + 's';
         var im = document.createElement('img'); im.src = pair[0]; im.alt = pair[1]; cell.appendChild(im);
         var lb = document.createElement('span'); lb.textContent = pair[1]; lb.className = 'clabel'; cell.appendChild(lb);
         if(pair[2]){ var v = document.createElement('em'); v.className = 'cvision'; v.textContent = pair[2]; cell.appendChild(v); }
@@ -477,6 +511,7 @@ function gateOpen(){
   if(!gate||gate.classList.contains('open'))return;
   gate.classList.add('open');
   document.body.classList.remove('gate-locked');
+  document.body.classList.add('bloom');
   setTimeout(function(){gate.style.display='none';},700);
 }
 if(gate){
