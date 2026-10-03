@@ -171,6 +171,10 @@
   .mgrid .mhead::after{content:"";flex:1;height:1px;background:#3a3d45;}
   .mgrid .stag{position:absolute;top:10px;left:10px;z-index:2;font-style:normal;font-family:'Archivo Black','Poppins',sans-serif;font-size:10px;letter-spacing:1px;color:#15161a;background:#c9f31d;padding:4px 9px;border-radius:999px;}
   .mgrid .cell img{border-radius:6px;}
+  .mgrid .cell img{transform:perspective(700px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .12s ease-out;}
+  .mgrid .cell .hex3d{position:absolute;top:16px;right:14px;z-index:3;pointer-events:none;translate:var(--mx,0px) var(--my,0px);will-change:translate;}
+  .mgrid .cell .hex3d > span{display:block;animation:hexBob 3.8s ease-in-out infinite;filter:drop-shadow(0 10px 10px rgba(0,0,0,.35));}
+  @keyframes hexBob{0%,100%{transform:translateY(0) rotate(-5deg);}50%{transform:translateY(-8px) rotate(5deg);}}
   .mgrid.folio .cell{padding:24px;}
   .mgrid.folio .cell img{max-height:320px;}
   /* thanks section */
@@ -478,6 +482,10 @@ document.querySelectorAll('.cat').forEach(function(c){
         var im = document.createElement('img'); im.src = pair[0]; im.alt = pair[1]; cell.appendChild(im);
         var lb = document.createElement('span'); lb.textContent = pair[1]; lb.className = 'clabel'; cell.appendChild(lb);
         if(pair[2]){ var v = document.createElement('em'); v.className = 'cvision'; v.textContent = pair[2]; cell.appendChild(v); }
+        var hx = document.createElement('div'); hx.className = 'hex3d';
+        hx.innerHTML = '<span><svg viewBox="0 0 24 27" width="24" height="27" aria-hidden="true"><polygon points="12,1.4 22.6,7.6 22.6,19.4 12,25.6 1.4,19.4 1.4,7.6" fill="none" stroke="#c8f31d" stroke-width="2.8"/><polygon points="12,7.2 17.8,10.6 17.8,16.4 12,19.8 6.2,16.4 6.2,10.6" fill="#c8f31d"/></svg></span>';
+        hx.firstElementChild.style.animationDelay = (n * 0.14).toFixed(2) + 's';
+        cell.appendChild(hx);
         mgrid.appendChild(cell);
       });
     } else {
@@ -590,6 +598,34 @@ if(gate){
     for(var i=0;i<items.length;i++){
       items[i].e.style.translate=(cx*items[i].d).toFixed(2)+'px '+(cy*items[i].d*0.7).toFixed(2)+'px';
     }
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>
+<script>
+(function(){
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var tx=0,ty=0,rx=0,ry=0;
+  if('DeviceOrientationEvent' in window){
+    window.addEventListener('deviceorientation',function(e){
+      if(e.gamma==null && e.beta==null) return;
+      tx = Math.max(-1, Math.min(1, (e.gamma||0)/20));
+      ty = Math.max(-1, Math.min(1, ((e.beta||45)-45)/20));
+    });
+  }
+  if(window.matchMedia && window.matchMedia('(pointer:fine)').matches){
+    document.addEventListener('mousemove',function(e){
+      tx = Math.max(-1, Math.min(1, (e.clientX/innerWidth-0.5)*2));
+      ty = Math.max(-1, Math.min(1, (e.clientY/innerHeight-0.5)*2));
+    });
+  }
+  (function tick(){
+    rx += (tx - rx) * .07; ry += (ty - ry) * .07;
+    var st = document.documentElement.style;
+    st.setProperty('--rx', (rx * 4).toFixed(2) + 'deg');
+    st.setProperty('--ry', (ry * 5).toFixed(2) + 'deg');
+    st.setProperty('--mx', (rx * -8).toFixed(2) + 'px');
+    st.setProperty('--my', (ry * -6).toFixed(2) + 'px');
     requestAnimationFrame(tick);
   })();
 })();
